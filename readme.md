@@ -1,125 +1,90 @@
-## Swap File if USE DO $48 -> 4/8 
-Buat file Swapfile :
+Hi, this is a guide how to run your Gensyn RL-SWARM on CPU Device or CPU based VPS, in this guide i'll add some tutorial if you use a low specs VPS. But i recommend you run with device specs recommended by Gensyn or atleast get a 16gb RAM and 4vCPU VPS you can get it from Contabo, Digital Oceans, Netcup, etc
+For example i run it with Netcup VPS Specs 8vCPU and 32GB RAM, i can do RL-SWARM and CODEASSIST in the same device no problems and i will add the tutorial too in this guide
+
+## RL-SWARM
+
+## Swap File if you use VPS with this specs -> 4vCPU/8GB RAM with atleast 100GB Storage because SWAPFILE taking your storage to help your Device Memory (If you already use High Specs VPS SKIP THIS) 
+  
+  Make file Swapfile :
 ```
 sudo fallocate -l 32G /swapfile
 sudo dd if=/dev/zero of=/swapfile bs=1G count=32 status=progress
 ```
 
-Set Perm : 
+  Set Perm : 
 ```
 sudo chmod 600 /swapfile
 ```
 
-Format :
+  Format :
 ```
 sudo mkswap /swapfile
 ```
 
-Enable : 
+  Enable : 
 ```
 sudo swapon /swapfile
 ```
 
-Enable on boot : 
+  Enable on boot : 
 ```
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 ```
 
-Cek :
+  Checking whether the swapfile is implemented :
 ```
 free
 ```
 
-Reboot :
+  Reboot (if reboot makes you anxious you can skip it, but do it at your own risk) :
 ```
 sudo reboot
 ```
 
 ---
 
-## 1) Install Dependencies
-**1. Update System Packages**
-```bash
-sudo apt-get update && sudo apt-get upgrade -y
+## 1) Install Dependencies 
+
+# Set up Docker's apt repository.
+   Add Docker's official GPG key:
 ```
-**2. Install General Utilities and Tools**
-```bash
-sudo apt install screen curl iptables build-essential git wget lz4 jq make gcc nano automake autoconf tmux htop nvme-cli libgbm1 pkg-config libssl-dev libleveldb-dev tar clang bsdmainutils ncdu unzip libleveldb-dev  -y
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 ```
 
-**3. Install Python**
-```bash
-sudo apt-get install python3 python3-pip python3-venv python3-dev -y
+# Add the repository to Apt sources:
+```
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+```
+```
+sudo apt update
 ```
 
-**4. Install Node**
+# Install Docker :
 ```
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-source ~/.bashrc
-nvm install 'lts/*'
-nvm use 'lts/*'
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-**5. Install Yarn**
-```bash
-curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt-get update -y
-sudo apt-get install yarn -y
+## If you want to run CODEASSIST too install this :
+  ```
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
+
+## Install RL-SWARM :  
+```
+git clone https://github.com/gensyn-ai/rl-swarm
 ```
 
-**🚩🚩🚩🚩PENTING KHUSUS CPU ERROR ONLY DAN KALO PAHAM APA YANG DIINPUT, KALO GA PAHAM TINGGALIN, KALO UDAH PERNAH RUN TOLONG SCREENNYA DIHAPUS DULU DAN RUN COMMAND DIBAWAH INI DI ROOT JANGAN DISCREEN**
-Update Python kalo belum pake 3.13 
-```bash
-curl https://pyenv.run | bash
+## Run RL-SWARM
 ```
-
-***INI BEDA TIAP VPS MASUKIN DARI OUTPUTNYA AJA YANG MIRIP DIBAWAH INI***
-```bash
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - bash)"
-```
-
-```bash
-source ~/.bashrc
-```
-
-```bash
-sudo apt-get install libssl-dev libncurses5-dev libsqlite3-dev libreadline-dev tk-dev libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev uuid-dev
-```
-
-```bash
-pyenv install 3.13.1
-```
-
-```bash
-pyenv global 3.13.1
-```
-
-
-
-
-
-## 📥 Installation
-
-1. **Install `sudo`**
-```bash
-apt update && apt install -y sudo
-```
-2. **SCREEN KALO BELOM SCREEN, KALO UDAH LANGSUNG AJA LANJUT SCREEN SEBELUMNYA** 
-```bash
-screen -S gensyn
-```
-3. ***RUN PAKE GPU INI COMMANDNYA***
-```bash
-cd $HOME && git clone https://github.com/Alvinagustus/gensyn.git && chmod +x gensyn/gensyn.sh && source ./gensyn/gensyn.sh
-```
-3. ***TIDAK DIREKOMENDASIKAN RUN INI HANYA UNTUK TRIAL AND ERROR SAJA***
-```bash
-cd $HOME && git clone https://github.com/Alvinagustus/gensyn.git && chmod +x gensyn/gensyn-test.sh && source ./gensyn/gensyn-test.sh
-```
-3. ***RUN PAKE CPU INI COMMANDNYA***
-```bash
-cd $HOME && git clone https://github.com/Alvinagustus/gensyn.git && chmod +x gensyn/gensyn-cpu.sh && source ./gensyn/gensyn-cpu.sh
+docker compose run --rm --build -Pit swarm-cpu
 ```
