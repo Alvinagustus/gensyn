@@ -88,3 +88,6 @@ git clone https://github.com/gensyn-ai/rl-swarm
 ```
 docker compose run --rm --build -Pit swarm-cpu
 ```
+
+
+*** YOU ARE NOW A PART OF THE SWARM, CONGRATULATIONS ***
