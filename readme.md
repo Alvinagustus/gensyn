@@ -90,4 +90,4 @@ docker compose run --rm --build -Pit swarm-cpu
 ```
 
 
-*** YOU ARE NOW A PART OF THE SWARM, CONGRATULATIONS ***
+**YOU ARE NOW A PART OF THE SWARM, CONGRATULATIONS**
