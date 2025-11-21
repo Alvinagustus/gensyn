@@ -1,4 +1,4 @@
-If you already install the dependencies on RL-SWARM guide you can continue here, if you havent please visit the RL-SWARM guide first and install it
+If you already install the dependencies on RL-SWARM guide you can continue here, if you havent please visit the RL-SWARM guide first (see readme.md) and install it
 
 ## CODEASSIST
 
