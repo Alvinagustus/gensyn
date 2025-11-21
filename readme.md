@@ -1,5 +1,5 @@
 Hi, this is a guide how to run your Gensyn RL-SWARM on CPU Device or CPU based VPS, in this guide i'll add some tutorial if you use a low specs VPS. But i recommend you run with device specs recommended by Gensyn or atleast get a 16gb RAM and 4vCPU VPS you can get it from Contabo, Digital Oceans, Netcup, etc
-For example i run it with Netcup VPS Specs 8vCPU and 32GB RAM, i can do RL-SWARM and CODEASSIST in the same device no problems and i will add the tutorial too in this guide
+For example i run it with Netcup VPS Specs 8vCPU and 32GB RAM, i can do RL-SWARM and CODEASSIST in the same device no problems and i will add the tutorial too (see CODEASSIST-GUIDE.md)
 
 ## RL-SWARM
 
