@@ -33,6 +33,10 @@ uv run run.py --port 3001
 uv run run.py
 ```
 
+# Huggingface Token : 
+  You can get your Huggingface token in https://huggingface.co/settings/tokens and create a new token and change the permission into WRITE
+
+  **Dont get alarmed when pasteing your huggingface token on prompt and it shows nothing, it's normal**
 
 # Wait for the install finished and you got the output that tells you to open http://localhost:3001 . DONT PRESS CTRL+C if you havent trained the AI
 <img width="1263" height="658" alt="image" src="https://github.com/user-attachments/assets/a4e251c7-a2c0-4958-bbf4-c4ccc36c32ed" />
@@ -42,4 +46,6 @@ uv run run.py
 ```
 ssh -L 3001:localhost:3001 -L 8000:localhost:8000 -L 8008:localhost:8008 root@ipvps
 ```
-Change IPVPS with your VPS IP and login with your password and open the web http://localhost:3001 
+Change IPVPS with your VPS IP and login with your password, this step is to make you can open the codeassist web you can leave it after login BUT DON'T CLOSE IT BEFORE YOUR FINISHED and open the web http://localhost:3001 then train your CODEASSIST. If you finished solving problems you can press CTRL+C on your VPS to Trigger Training
+
+**CONGRATULATIONS YOU ARE FINALLY A CODEASSIST TRAINER**
