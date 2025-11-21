@@ -38,7 +38,7 @@ uv run run.py
 <img width="1263" height="658" alt="image" src="https://github.com/user-attachments/assets/a4e251c7-a2c0-4958-bbf4-c4ccc36c32ed" />
 
 
-# If you run it on VPS on WIndows, Open Powershell in your PC/Laptop (LOCAL) and input :
+# After the install finished. If you run it on VPS on WIndows, Open Powershell in your PC/Laptop (LOCAL) and input :
 ```
 ssh -L 3001:localhost:3001 -L 8000:localhost:8000 -L 8008:localhost:8008 root@ipvps
 ```
